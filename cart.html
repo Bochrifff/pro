@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Panier</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header>
+        <h1>Votre Panier</h1>
+        <a href="site.html">Retour à la boutique</a>
+    </header>
+        <div id="cart-items-container"></div>
+        <div class="checkout-container">
+            <button id="checkout-button">Confirmer votre commande</button>
+        </div>
+    <script src="cart.js"></script>
+    <div id="order-form-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Formulaire de commande</h2>
+            <form id="order-form">
+                <input type="text" name="nom" placeholder="Nom" required>
+                <input type="text" name="prenom" placeholder="Prénom" required>
+                <input type="email" name="email" placeholder="Adresse mail" required>
+                <input type="text" name="adresse" placeholder="Adresse" required>
+                <input type="tel" name="tel" placeholder="Téléphone" required>
+                <button type="submit">Confirmer reservation</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

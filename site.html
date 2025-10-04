@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kurama store</title>
+    <meta name="description" content="Découvrez notre sélection d'accessoires informatiques haut de gamme : souris, claviers, casques et bien plus. Qualité professionnelle et design moderne.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --accent: #f97316;
+            --background: #ffffff;
+            --foreground: #1e293b;
+            --secondary: #f8fafc;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --card-shadow: 0 4px 20px -4px rgba(59, 130, 246, 0.15);
+            --card-shadow-hover: 0 8px 30px -4px rgba(59, 130, 246, 0.25);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--foreground);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--foreground);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cart-button {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .cart-button:hover {
+            background-color: var(--secondary);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--accent);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 1rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(249, 115, 22, 0.05));
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--foreground);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 1rem;
+            background-color: var(--background);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--muted);
+        }
+
+        .categories-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .category-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
+        }
+
+        .category-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: white;
+        }
+
+        .category-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 4rem 1rem;
+            background-color: var(--secondary);
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .product-image {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background-color: var(--secondary);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .product-content {
+            padding: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star {
+            width: 16px;
+            height: 16px;
+            fill: var(--accent);
+        }
+
+        .star.empty {
+            fill: var(--border);
+        }
+
+        .product-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            background-color: var(--secondary);
+            padding: 3rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        /* Icons SVG */
+        .icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @media (max-width: 767px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#accueil" class="logo">
+                <div class="logo-icon"><img src="logo.jpeg" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;"></div>
+                <span class="logo-text">𝐊𝐮𝐫𝐚𝐦𝐚</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#produits">Produits</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="cart.html" class="cart-button">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-container">
+            
+           <img src="b.jpeg" alt="Image principale" class="centered-image" style="display: block; margin: 0 auto; max-width: 100%; height: auto; width: 800px; object-fit: cover;">
+            <div class="hero-buttons">
+                <a href="#produits" class="btn btn-primary">
+                    Voir les produits
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+ 
+
+    <section id="produits" class="products">
+        <div class="section-header">
+            <h2>Nos Produits Populaires</h2>
+            <p>Une sélection des meilleurs accessoires pour votre setup</p>
+        </div>
+        <div class="products-grid" id="products-container">
+            <!-- Products will be added by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <a href="#accueil" class="logo" style="display: inline-flex; margin-bottom: 1rem;">
+                    <div class="logo-icon"><img src="logo.jpeg" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;"></div>
+                    <span class="logo-text">Kaurama</span>
+                </a>
+                <p style="color: var(--muted); font-size: 0.875rem;">
+                    Votre boutique spécialisée en accessoires informatiques haut de gamme.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#produits">Produits</a></li>
+                    <li><a href="#categories">Catégories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    kurama.store@gmail.com
+                </div>
+                <div class="footer-contact">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    +216 28 168 432 
+                    +216 28 881 911
+                </div>
+                <div class="footer-contact">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    Tunis
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Kuramá. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Products data
+        const products = [
+            {
+                id: 1,
+                name: "Casque_Marshall : Un casque sans fil supra-auriculaire (on-ear) au look classique Marshall, offrant une autonomie exceptionnelle de 80 heures.",
+                
+                price: "260 DT",
+                category: "Audio",
+                rating: 5,
+                image: "casque.jpeg"
+            },
+            {
+                id: 2,
+                name: "Casque_JBL : Un casque sans fil circum-auriculaire (over-ear) noir axé sur la puissance des basses.",
+                price: "240 DT",
+                category: "Audio",
+                rating: 5,
+                image: "casque_jbl.jpeg"
+            },
+            {
+                id: 3,
+                name: "airpods_Marshall : Des écouteurs true wireless (sans fil) compacts au design Marshall emblématique pour une liberté totale d'écoute.",
+                price: "320 DT",
+                category: "Audio",
+                rating: 5,
+                image: "airpods_marshall.jpeg"
+            },
+            {
+                id: 4,
+                name: "Casque_sony : Un casque sans fil premium connu pour sa réduction de bruit active (ANC) de pointe et son confort supérieur.",
+                description:"",
+                price: "280 DT",
+                category: "Audio",
+                rating: 5,
+                image: "casque_sony.jpeg",
+            }
+        ];
+
+        // Render products
+        const productsContainer = document.getElementById('products-container');
+        
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            
+            const stars = Array(5).fill(0).map((_, i) => 
+                `<svg class="star ${i >= product.rating ? 'empty' : ''}" viewBox="0 0 24 24">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>`
+            ).join('');
+            
+            productCard.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="product-badge">${product.category}</div>
+                </div>
+                <div class="product-content">
+                    <div class="product-rating">${stars}</div>
+                    <h3>${product.name}</h3>
+                    <div class="product-price">${product.price}</div>
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                    Réserver maintenant
+                    </button>
+                </div>
+            `;
+            
+            productsContainer.appendChild(productCard);
+        });
+
+        // Add to cart function
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            const badge = document.querySelector('.cart-badge');
+            badge.textContent = cart.length;
+            
+            // Animation
+            badge.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update cart badge on page load
+        const badge = document.querySelector('.cart-badge');
+        badge.textContent = cart.length;
+    </script>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Votre Panier</h2>
+            <div id="modal-cart-container"></div>
+        </div>
+    </div>
+</body>
+</html>
